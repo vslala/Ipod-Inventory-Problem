@@ -1,16 +1,22 @@
 package main.java.agiledev.countries;
 
+import main.java.agiledev.store.Inventory;
+import main.java.agiledev.store.Products;
+
 /**
  * Created by varunsh on 8/23/2016.
  */
 public class Country {
-    private int countryID;
+    Inventory inventory;
 
-    public void setCountryID(int countryID) {
-        this.countryID = countryID;
+    public Country() {}
+
+    public Country(Countries country) {
+        inventory = new Inventory();
+        inventory.setInitailStock(country);
     }
 
-    public int getCountryID() {
-        return countryID;
+    public boolean isInventoryEmpty(Countries country, Products product) {
+        return inventory.isEmpty(country, product);
     }
 }
