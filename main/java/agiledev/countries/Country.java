@@ -4,24 +4,24 @@ package main.java.agiledev.countries;
  * Created by varunsh on 8/23/2016.
  */
 public class Country implements ICountries {
-    Countries country;
+    private Countries country;
     private int iphoneStock;
     private int ipodStock;
 
     public Country(Countries country) {
-        this.country = country;
+        this.setCountry(country);
         setIphoneStock(getIPHONEInitialStock());
         setIpodStock(getIPODInitialStock());
     }
 
     @Override
     public double getIPODPrice() {
-        return country.getIpodSellingPrice(country);
+        return getCountry().getIpodSellingPrice(getCountry());
     }
 
     @Override
     public double getIPHONEPrice() {
-        return country.getIphoneSellingPrice(country);
+        return getCountry().getIphoneSellingPrice(getCountry());
     }
 
     @Override
@@ -36,12 +36,12 @@ public class Country implements ICountries {
 
     @Override
     public int getIPODInitialStock() {
-        return country.getIpodStock(country);
+        return getCountry().getIpodStock(getCountry());
     }
 
     @Override
     public int getIPHONEInitialStock() {
-        return country.getIphoneStock(country);
+        return getCountry().getIphoneStock(getCountry());
     }
 
 
@@ -78,6 +78,14 @@ public class Country implements ICountries {
 
     public void setIpodStock(int ipodStock) {
         this.ipodStock = ipodStock;
+    }
+
+    public Countries getCountry() {
+        return country;
+    }
+
+    public void setCountry(Countries country) {
+        this.country = country;
     }
 
 

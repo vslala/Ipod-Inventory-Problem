@@ -1,6 +1,5 @@
 package main.java.agiledev.store;
 
-import main.java.agiledev.countries.Countries;
 import main.java.agiledev.countries.Country;
 
 /**
@@ -10,7 +9,10 @@ public class Order implements Inventory{
 
     private Country country1;
     private Country country2;
-    private double totalSale = 0.00d;
+    private double totalPrice = 0.00d;
+    private boolean isShipped = true;
+    private final double shippingCost = 400.00d;
+    private final double shippingCostAfterDiscount = 400 - ( (400.00d * 20) / 100 );
 
     public Order() {}
 
@@ -19,14 +21,26 @@ public class Order implements Inventory{
         this.setCountry2(country[1]);
     }
     @Override
-    public void sellIpod(int qty) {
+    public void sellIpod(int qty, boolean discont) {
         if (isIpodInStock(qty)) {
+            calculateTotalPrice(qty, discont);
             getCountry1().setIpodStock(getCountry1().getIPODStock() - qty);
             return;
         } else {
+            isShipped = true;
             if (! borrowIpod(qty, getCountry2())) {
+                isShipped = false;
                 throw new Country.OutOfStockException();
             };
+        }
+    }
+
+    private void calculateTotalPrice(int qty, boolean discount) {
+        if (isShipped) {
+            if (discount)
+                totalPrice = (qty * country1.getIPODPrice() + shippingCostAfterDiscount);
+            else
+                totalPrice = (qty * country1.getIPODPrice() + 400.00d);
         }
     }
 
@@ -34,7 +48,7 @@ public class Order implements Inventory{
         if (country.getIPODStock() > 10) {
             country.shipIpod(10);
             this.addIpod(10);
-            this.sellIpod(qty);
+            this.sellIpod(qty, false);
             return true;
         }
         return false;
@@ -52,10 +66,13 @@ public class Order implements Inventory{
         return (passportID.matches("A[A-Z]{2}[A-Z0-9]{9}"));
     }
 
+
+
     @Override
-    public void sellIphone(int qty) {
+    public void sellIphone(int qty, boolean discount) {
         if (isIphoneInStock(qty)) {
             getCountry1().setIphoneStock(getCountry1().getIPHONEStock() - qty);
+            calculateTotalPrice(qty, discount);
             return;
         }
 
@@ -69,7 +86,7 @@ public class Order implements Inventory{
         if (country.getIPHONEStock() > 10) {
             country.shipIpod(10);
             this.addIphone(10);
-            this.sellIpod(qty);
+            this.sellIpod(qty, false);
             return true;
         }
         return false;
@@ -108,4 +125,10 @@ public class Order implements Inventory{
     public void setCountry2(Country country2) {
         this.country2 = country2;
     }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+
 }

@@ -3,6 +3,7 @@ package test.java.agiledev.store;
 import main.java.agiledev.countries.Countries;
 import main.java.agiledev.countries.Country;
 import main.java.agiledev.store.Order;
+import main.java.agiledev.store.Store;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class TestOrder {
     public void itShouldCheckIfIPODInventoryOfGivenCountryIsEmpty(){
         order = new Order(brazil, argentina);
         boolean flag = false;
-        order.sellIpod(100);
+        order.sellIpod(100, false);
         if (brazil.getIPODStock() == 0) {
             flag = true;
             Assert.assertTrue(flag);
@@ -31,12 +32,12 @@ public class TestOrder {
         Country country1 = new Country(Countries.BRAZIL);
         Country country2 = new Country(Countries.ARGENTINA);
         order = new Order(country1, country2);
-        order.sellIpod(1);
-        order.sellIphone(1);
+        order.sellIpod(1, false);
+        order.sellIphone(1, false);
         order.setCountry1(country2);
         order.setCountry2(country1);
-        order.sellIpod(1);
-        order.sellIphone(1);
+        order.sellIpod(1, false);
+        order.sellIphone(1, false);
         Assert.assertEquals(99, country1.getIPODStock());
         Assert.assertEquals(99, country1.getIPHONEStock());
         Assert.assertEquals(99, country2.getIPODStock());
@@ -48,8 +49,8 @@ public class TestOrder {
         Country country1 = new Country(Countries.BRAZIL);
         Country country2 = new Country(Countries.ARGENTINA);
         order = new Order(country1, country2);
-        order.sellIpod(1);
-        order.sellIphone(1);
+        order.sellIpod(1, false);
+        order.sellIphone(1, false);
 
         order.addIpod(1);
         order.addIphone(1);
@@ -63,7 +64,7 @@ public class TestOrder {
         Country country1 = new Country(Countries.BRAZIL);
         Country country2 = new Country(Countries.ARGENTINA);
         order = new Order(country1, country2);
-        order.sellIpod(110);
+        order.sellIpod(110, false);
         Assert.assertEquals(90, country2.getIPODStock());
     }
 
@@ -72,9 +73,28 @@ public class TestOrder {
         Country country1 = new Country(Countries.BRAZIL);
         Country country2 = new Country(Countries.ARGENTINA);
         order = new Order(country1, country2);
-        order.sellIpod(100);
-        order.sellIpod(95);
-        order.sellIpod(1);
+        order.sellIpod(100, false);
+        order.sellIpod(95, false);
+        order.sellIpod(1, false);
+    }
+
+    @Test
+    public void itShouldCheckForTotalPriceForIpodPurchase () {
+        Country country1 = new Country(Countries.BRAZIL);
+        Country country2 = new Country(Countries.ARGENTINA);
+        order = new Order(country1, country2);
+
+        order.sellIpod(10, false);
+//        order.calculateTotalPrice();
+    }
+
+    @Test
+    public void sellIpodAndCalculatePrice () {
+        Country country1 = new Country(Countries.BRAZIL);
+        Country country2 = new Country(Countries.ARGENTINA);
+        Store store = new Store();
+        store.sellIpodAndCalculatePrice(country1, country2);
+
     }
 
 
