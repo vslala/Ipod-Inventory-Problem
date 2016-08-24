@@ -92,9 +92,8 @@ public class TestOrder {
     public void sellIpodAndCalculatePrice () {
         Country country1 = new Country(Countries.BRAZIL);
         Country country2 = new Country(Countries.ARGENTINA);
-        Store store = new Store();
-        store.sellIpodAndCalculatePrice(country1, country2);
-
+        Store store = new Store(country1, country2);
+        store.sellIpodAndCalculatePrice(country1, "B123AB1234567", 10, 23);
     }
 
 

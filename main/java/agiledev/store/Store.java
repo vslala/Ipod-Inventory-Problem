@@ -33,27 +33,8 @@ public class Store {
                             String passportID = ui.getPassportID();
                             int ipodQty = ui.getIpodQty();
                             int iphoneQty = ui.getIphoneQty();
-                            if (brazil.isBrazillian(passportID)) {
-                                order.sellIpod(ipodQty, false);
-                            }
-                            if (brazil.isArgentinian(passportID)) {
-                                order.sellIpod(ipodQty, true);
-                            }
-                            if (brazil.isBrazillian(passportID)) {
-                                order.sellIphone(iphoneQty, false);
-                            }
-                            if (brazil.isArgentinian(passportID)) {
-                                order.sellIphone(iphoneQty, true);
-                            }
-                            swapCountry();
-                            if (argentina.isArgentinian(passportID)) {
-                                order.sellIpod(ipodQty, false);
-                            }
-                            if (argentina.isBrazillian(passportID)) {
-                                order.sellIpod(ipodQty, true);
-                            }
-
-
+                            sellIpodAndCalculatePrice(brazil, passportID, ipodQty, iphoneQty);
+                            sellIpodAndCalculatePrice(argentina, passportID, ipodQty, iphoneQty);
                             break;
                         case 0:
                             System.exit(0);
@@ -78,22 +59,32 @@ public class Store {
         order.setCountry2(brazil);
     }
 
-    public void sellIpodAndCalculatePrice (Country country1, Country country2, String passportID,
+    public void sellIpodAndCalculatePrice (Country country, String passportID,
                                            int ipodQty, int iphoneQty) {
         boolean discount = false;
-        switch (country1.getCountry()) {
+        switch (country.getCountry()) {
             case BRAZIL:
-                if (country1.isBrazillian(passportID)) {
+                if (country.isBrazillian(passportID)) {
                     order.sellIpod(ipodQty, discount);
                     order.sellIphone(iphoneQty, discount);
                 }
-                if (country1.isArgentinian(passportID)) {
-                    order.sellIpod(ipodQty, true);
-                    order.sellIphone(iphoneQty, true);
+                if (country.isArgentinian(passportID)) {
+                    discount = true;
+                    order.sellIpod(ipodQty, discount);
+                    order.sellIphone(iphoneQty, discount);
                 }
-                    break;
+                break;
             case ARGENTINA:
-
+                if (country.isArgentinian(passportID)) {
+                    discount = false;
+                    order.sellIpod(ipodQty, discount);
+                    order.sellIphone(iphoneQty, discount);
+                }
+                if (country.isBrazillian(passportID)) {
+                    discount = true;
+                    order.sellIpod(ipodQty, discount);
+                    order.sellIphone(iphoneQty, discount);
+                }
                 break;
             default:
 

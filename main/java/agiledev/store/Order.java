@@ -22,6 +22,7 @@ public class Order implements Inventory{
     }
     @Override
     public void sellIpod(int qty, boolean discont) {
+        System.out.println(qty);
         if (isIpodInStock(qty)) {
             calculateTotalPrice(qty, discont);
             getCountry1().setIpodStock(getCountry1().getIPODStock() - qty);
@@ -55,7 +56,7 @@ public class Order implements Inventory{
     }
 
     private boolean isIpodInStock(int qty) {
-        return getCountry1().getIPODStock() >= qty;
+        return country1.getIPODStock() >= qty;
     }
 
     public boolean isBrazillian (String passportID) {

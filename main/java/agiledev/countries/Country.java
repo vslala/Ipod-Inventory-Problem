@@ -26,7 +26,7 @@ public class Country implements ICountries {
 
     @Override
     public int getIPODStock() {
-        return getIpodStock();
+        return ipodStock;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Country implements ICountries {
 
     @Override
     public void shipIpod(int num) {
-        this.setIpodStock(this.getIpodStock() - num);
+        this.setIpodStock(this.getIPODStock() - num);
     }
 
     @Override
@@ -70,10 +70,6 @@ public class Country implements ICountries {
 
     public void setIphoneStock(int iphoneStock) {
         this.iphoneStock = iphoneStock;
-    }
-
-    public int getIpodStock() {
-        return ipodStock;
     }
 
     public void setIpodStock(int ipodStock) {
