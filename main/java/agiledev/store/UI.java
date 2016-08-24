@@ -22,7 +22,14 @@ public class UI {
         this.setIphoneQty(Integer.parseInt(in.nextLine()));
     }
 
-    public void mainScreen () {
+    public void mainScreen() {
+        System.out.println("Choose Store");
+        System.out.println("1. Brazil");
+        System.out.println("2. Argentina");
+        System.out.println("0. Exit");
+    }
+
+    public void subScreen () {
         System.out.println("1. Make an Order");
         System.out.println("0. Exit");
     }

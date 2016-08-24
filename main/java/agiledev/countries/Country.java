@@ -1,20 +1,17 @@
 package main.java.agiledev.countries;
 
-import main.java.agiledev.store.Inventory;
-import main.java.agiledev.store.Products;
-
 /**
  * Created by varunsh on 8/23/2016.
  */
-public class Country implements ICountries, Inventory {
+public class Country implements ICountries {
     Countries country;
     private int iphoneStock;
     private int ipodStock;
 
     public Country(Countries country) {
         this.country = country;
-        iphoneStock = getIPHONEInitialStock();
-        ipodStock = getIPODInitialStock();
+        setIphoneStock(getIPHONEInitialStock());
+        setIpodStock(getIPODInitialStock());
     }
 
     @Override
@@ -29,12 +26,12 @@ public class Country implements ICountries, Inventory {
 
     @Override
     public int getIPODStock() {
-        return ipodStock;
+        return getIpodStock();
     }
 
     @Override
     public int getIPHONEStock() {
-        return iphoneStock;
+        return getIphoneStock();
     }
 
     @Override
@@ -47,80 +44,15 @@ public class Country implements ICountries, Inventory {
         return country.getIphoneStock(country);
     }
 
+
     @Override
     public void shipIpod(int num) {
-        this.ipodStock -= num;
+        this.setIpodStock(this.getIpodStock() - num);
     }
 
     @Override
-    public void sellIphone(Country... countries) {
-        sellIphone();
-    }
-
-    @Override
-    public void sellIpod(Country... countries) {
-        if (ipodStock <= 0) {
-            for (Country country: countries) {
-                if (country.ipodStock > 10) {
-                    country.shipIpod(10);
-                    this.addIpod(10);
-                    return;
-                }
-            }
-            throw new OutOfStockException();
-        }
-        sellIpod();
-
-    }
-
-    @Override
-    public void sellIphone() {
-        iphoneStock -= 1;
-    }
-
-    @Override
-    public void sellIpod() {
-        ipodStock -= 1;
-    }
-
-    @Override
-    public void sellIphone(int num) {
-        iphoneStock -= num;
-    }
-
-    @Override
-    public void sellIpod(int num) {
-        ipodStock -= num;
-    }
-
-    @Override
-    public void addIphone(int num, Country... countries) {
-        iphoneStock += num;
-    }
-
-    @Override
-    public void addIpod(int num, Country... countries) {
-        ipodStock += num;
-    }
-
-    @Override
-    public void addIphone(int num) {
-        ipodStock += num;
-    }
-
-    @Override
-    public void addIpod(int num) {
-        ipodStock += num;
-    }
-
-    @Override
-    public void addIphone() {
-        iphoneStock += 1;
-    }
-
-    @Override
-    public void addIpod() {
-        ipodStock += 1;
+    public void shipIphone(int num) {
+        this.setIphoneStock(this.getIPHONEStock() - num);
     }
 
 
@@ -132,7 +64,23 @@ public class Country implements ICountries, Inventory {
         return (passportID.matches("A[A-Z]{2}[A-Z0-9]{9}"));
     }
 
+    public int getIphoneStock() {
+        return iphoneStock;
+    }
 
-    public class OutOfStockException extends RuntimeException {
+    public void setIphoneStock(int iphoneStock) {
+        this.iphoneStock = iphoneStock;
+    }
+
+    public int getIpodStock() {
+        return ipodStock;
+    }
+
+    public void setIpodStock(int ipodStock) {
+        this.ipodStock = ipodStock;
+    }
+
+
+    public static class OutOfStockException extends RuntimeException {
     }
 }

@@ -14,4 +14,5 @@ public interface ICountries {
     public int getIPHONEInitialStock();
 
     void shipIpod(int num);
+    void shipIphone(int num);
 }
