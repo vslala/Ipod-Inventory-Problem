@@ -1,6 +1,7 @@
 package test.java.agiledev.store;
 
 import main.java.agiledev.countries.Countries;
+import main.java.agiledev.countries.Country;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,6 +11,6 @@ import org.junit.Test;
 public class TestCountries {
     @Test
     public void itShouldReturnIPODPriceForGivenCountry() {
-        System.out.println(Countries.BRAZIL.getIpodSellingPrice(Countries.BRAZIL));
+        Country country = new Country(Countries.BRAZIL);
     }
 }

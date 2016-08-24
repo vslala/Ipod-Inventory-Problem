@@ -27,4 +27,26 @@ public enum Countries {
                 return 00.00d;
         }
     }
+
+    public int getIpodStock(Countries country) {
+        switch (country) {
+            case BRAZIL:
+                return 100;
+            case ARGENTINA:
+                return 100;
+            default:
+                return 00;
+        }
+    }
+
+    public int getIphoneStock(Countries country) {
+        switch (country) {
+            case BRAZIL:
+                return 100;
+            case ARGENTINA:
+                return 50;
+            default:
+                return 00;
+        }
+    }
 }
