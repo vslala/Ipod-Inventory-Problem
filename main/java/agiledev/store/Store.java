@@ -9,7 +9,7 @@ import main.java.agiledev.countries.Countries;
 public class Store {
 
     UI ui = new UI();
-    Country brazil, argentina;
+    Country brazil = new Country(Countries.BRAZIL), argentina = new Country(Countries.ARGENTINA);
     Order order = new Order(brazil, argentina);
     private int ch;
 
@@ -35,6 +35,9 @@ public class Store {
                             int iphoneQty = ui.getIphoneQty();
                             sellIpodAndCalculatePrice(brazil, passportID, ipodQty, iphoneQty);
                             sellIpodAndCalculatePrice(argentina, passportID, ipodQty, iphoneQty);
+                            break;
+                        case 2:
+                            System.out.println(order.getTotalPrice());
                             break;
                         case 0:
                             System.exit(0);
@@ -90,6 +93,10 @@ public class Store {
 
                 break;
         }
+    }
+
+    public static void main (String [] args) {
+        new Store(new Country(Countries.BRAZIL), new Country(Countries.ARGENTINA)).init();
     }
 
 

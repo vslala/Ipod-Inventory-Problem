@@ -31,6 +31,7 @@ public class UI {
 
     public void subScreen () {
         System.out.println("1. Make an Order");
+        System.out.println("2. Calculate Total Price");
         System.out.println("0. Exit");
     }
 

@@ -73,8 +73,8 @@ public class TestOrder {
         Country country1 = new Country(Countries.BRAZIL);
         Country country2 = new Country(Countries.ARGENTINA);
         order = new Order(country1, country2);
-        order.sellIpod(100, false);
-        order.sellIpod(95, false);
+        order.sellIpod(123, false);
+//        order.sellIpod(95, false);
         order.sellIpod(1, false);
     }
 

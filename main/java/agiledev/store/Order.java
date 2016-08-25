@@ -21,19 +21,28 @@ public class Order implements Inventory{
         this.setCountry2(country[1]);
     }
     @Override
-    public void sellIpod(int qty, boolean discont) {
-        System.out.println(qty);
+    public void sellIpod(int qty, boolean discount) {
         if (isIpodInStock(qty)) {
-            calculateTotalPrice(qty, discont);
+            calculateTotalPrice(qty, discount);
             getCountry1().setIpodStock(getCountry1().getIPODStock() - qty);
             return;
-        } else {
+        } else if ((! isIpodStockEmpty()) && qty > country1.getIPODStock()) {
+            qty -= country1.getIPODStock();
+            sellIpod(country1.getIPODStock(), discount);
+            calculateTotalPrice(qty, discount);
+            country1.setIpodStock(0);
+            return;
+        }else {
             isShipped = true;
             if (! borrowIpod(qty, getCountry2())) {
                 isShipped = false;
                 throw new Country.OutOfStockException();
             };
         }
+    }
+
+    private boolean isIpodStockEmpty() {
+        return country1.getIPODStock() <= 0;
     }
 
     private void calculateTotalPrice(int qty, boolean discount) {
